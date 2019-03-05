@@ -51,7 +51,7 @@ def equalization_using_histogram(img):
     return img_corrected
 
 
-params = {"K": 20, "I" : 100, "P" : 10, "THETA_M" : 10, "THETA_S" : 0.01,"THETA_C" : 8, "THETA_O" : 0.02}
+params = {"K": 100, "I" : 1000, "P" : 10, "THETA_M" : 10, "THETA_S" : 0.01,"THETA_C" : 8, "THETA_O" : 0.02}
 
 img = cv2.imread('dataset/original/before.jpg',0)
 # kernel = np.ones((5,5),np.uint8)
@@ -85,14 +85,19 @@ img = cv2.morphologyEx(img, cv2.MORPH_CLOSE, kernel, iterations=7)
 
 # run Isodata
 class_image = isodata_classification(img, parameters=params)
+# plt.imshow(class_image);
+# plt.show()
 
 # # equalize class image to 0:255
+
 class_image_eq = equalization_using_histogram(class_image)
 
 # # save it
-print("Equalized image classified using histogram 1")
-imgplot = plt.imshow(class_image_eq)
-plt.show()
+save_image(IMG_DEST_DIR, "image_eq", image_eq)
+
+# print("Equalized image classified using histogram 1")
+# imgplot = plt.imshow(class_image_eq)
+# plt.show()
 
 # # also save original image
 # image_eq = equalization_using_histogram(image)
